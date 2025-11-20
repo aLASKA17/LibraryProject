@@ -1,49 +1,37 @@
 package org.example;
 
-import org.example.controller.AccessUser;
-import org.example.controller.LibraryUser;
+import org.example.view.UI;
+import org.example.view.UIAdmin;
+import org.example.view.UIUser;
+
 import static java.lang.System.*;
 
-import java.util.Scanner;
 
 public class App {
 
-    Scanner scanner;
-    LibraryUser libraryUser;
+    UI ui;
+    UIAdmin uiAdmin;
+    UIUser uiUser;
 
-    // Инициализация переменных
+    // Инициализация меню
     public void init() {
-        scanner = new Scanner(in);
-        libraryUser = new LibraryUser(AccessUser.ADMIN);
+        ui = new UI();
+        uiAdmin = new UIAdmin();
+        uiUser = new UIUser();
+        ui.init();
     }
 
     // Запуск приложения
     public void run() {
         init();
-        switch (libraryUser.getAccessUser()) {
-            case USER -> uiUser();
-            case ADMIN -> uiAdmin();
+        switch (ui.getLibraryUser().getAccessUser()) {
+            case USER -> uiUser.uiUser(ui);
+            case ADMIN -> uiAdmin.uiAdmin(ui);
         }
     }
 
-    // Меню для админа
-    public void uiAdmin() {
-        out.println("Меню");
-        out.println("1) Добавить книгу");
-        out.println("2) Изменить книгу");
-        out.println("3) Удалить книгу");
-        out.println("4) Вывод книги");
-        out.println("5) Поиск");
-        out.println("6) Сортировать книгу");
-        out.println("7) Выход");
-    }
 
-    // Меню для пользователя
-    public void uiUser() {
-        out.println("Меню");
-        out.println("1) Вывод книги");
-        out.println("2) Поиск");
-        out.println("3) Сортировать книгу");
-        out.println("4) Выход");
-    }
+
+
+
 }
