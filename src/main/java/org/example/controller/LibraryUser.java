@@ -2,9 +2,14 @@ package org.example.controller;
 
 import org.example.model.Book;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LibraryUser implements UserAdmin, UserRegular{
+public class LibraryUser implements UserAdmin, UserRegular, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public ArrayList<Book> getBooks() {
         return books;

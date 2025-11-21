@@ -8,7 +8,7 @@ import java.util.Comparator;
 public class ComparatorByTitle implements Comparator<Book> {
     @Override
     public int compare(Book book1, Book book2) {
-        return 0;
+        return compareToByTitle(book1, book2);
     }
 
     public int compareToByTitle(Book book1, Book book2){

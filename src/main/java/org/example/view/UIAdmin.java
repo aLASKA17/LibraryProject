@@ -6,19 +6,21 @@ import org.example.sorted_book.ComparatorByPrice;
 import org.example.sorted_book.ComparatorByTitle;
 
 
+import java.io.IOException;
+
 import static java.lang.System.*;
 
 public class UIAdmin {
 
     // Меню для админа
-    public void uiAdmin(UI ui) {
+    public void uiAdmin(UI ui) throws IOException {
         int chooseAdminMenu;
         do {
             out.println("Меню");
             out.println("1) Добавить книгу");
             out.println("2) Изменить книгу");
             out.println("3) Удалить книгу");
-            out.println("4) Вывод книги");
+            out.println("4) Вывод книг");
             out.println("5) Поиск");
             out.println("6) Сортировать книгу");
             out.println("7) Выход");
@@ -34,6 +36,8 @@ public class UIAdmin {
                     out.print("Введите цену книги: ");
                     double price = ui.scanner.nextDouble();
                     ui.libraryUser.addBook(new Book(title, author, price));
+                    ui.objectOutputStream.writeObject(ui.libraryUser);
+                    ui.objectOutputStream.close();
                     break;
                 }
                 case 2: {

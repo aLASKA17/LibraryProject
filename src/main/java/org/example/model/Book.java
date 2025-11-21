@@ -1,6 +1,13 @@
 package org.example.model;
 
-public class Book implements Comparable<Book>{
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Book implements Comparable<Book>, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private static int index = 0;
     private String author;

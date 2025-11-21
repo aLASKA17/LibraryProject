@@ -4,7 +4,7 @@ import org.example.view.UI;
 import org.example.view.UIAdmin;
 import org.example.view.UIUser;
 
-import static java.lang.System.*;
+import java.io.IOException;
 
 
 public class App {
@@ -14,7 +14,7 @@ public class App {
     UIUser uiUser;
 
     // Инициализация меню
-    public void init() {
+    public void init() throws IOException {
         ui = new UI();
         uiAdmin = new UIAdmin();
         uiUser = new UIUser();
@@ -22,7 +22,7 @@ public class App {
     }
 
     // Запуск приложения
-    public void run() {
+    public void run() throws IOException {
         init();
         switch (ui.getLibraryUser().getAccessUser()) {
             case USER -> uiUser.uiUser(ui);
