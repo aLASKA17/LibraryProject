@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.exception.NotMenuPointException;
 import org.example.view.UI;
 import org.example.view.UIAdmin;
 import org.example.view.UIUser;
@@ -22,7 +23,7 @@ public class App {
     }
 
     // Запуск приложения
-    public void run() throws IOException {
+    public void run() throws IOException, NotMenuPointException {
         init();
         switch (ui.getLibraryUser().getAccessUser()) {
             case USER -> uiUser.uiUser(ui);
