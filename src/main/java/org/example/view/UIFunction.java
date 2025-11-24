@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.exception.NotMenuPointException;
+import org.example.file.File;
 import org.example.model.Book;
 import org.example.sorted_book.ComparatorByAuthor;
 import org.example.sorted_book.ComparatorByPrice;
@@ -12,6 +13,8 @@ import java.util.InputMismatchException;
 import static java.lang.System.*;
 
 public class UIFunction {
+
+    private File file = new File();
 
     public void addBookUIMenu(UI ui) throws IOException {
         ui.scanner.nextLine();
@@ -30,8 +33,8 @@ public class UIFunction {
             }
         } while (price == 0);
         ui.libraryUser.addBook(new Book(title, author, price));
-        ui.objectOutputStream.writeObject(ui.libraryUser);
-        ui.objectOutputStream.close();
+
+        file.saveBooks(ui.libraryUser.getBooks());
     }
 
     public void editBookUIMenu(UI ui) throws IOException, NotMenuPointException {
@@ -62,6 +65,7 @@ public class UIFunction {
                         out.print("\nВведите название книги: ");
                         String title = ui.scanner.nextLine();
                         ui.libraryUser.editTitleBook(editId, title);
+                        file.saveBooks(ui.libraryUser.getBooks());
                         break;
                     }
                     case 2: {
@@ -79,6 +83,7 @@ public class UIFunction {
                         out.print("\nВведите автора книги: ");
                         String author = ui.scanner.nextLine();
                         ui.libraryUser.editAuthorBook(editId, author);
+                        file.saveBooks(ui.libraryUser.getBooks());
                         break;
                     }
                     case 3: {
@@ -96,6 +101,7 @@ public class UIFunction {
                         out.print("\nВведите цену книги: ");
                         double price = ui.scanner.nextDouble();
                         ui.libraryUser.editPriceBook(editId, price);
+                        file.saveBooks(ui.libraryUser.getBooks());
                         break;
                     }
                 }
@@ -121,6 +127,7 @@ public class UIFunction {
             }
         } while (removeId == 0);
         ui.libraryUser.removeBook(removeId);
+        file.saveBooks(ui.libraryUser.getBooks());
     }
 
     public void searchBookUIMenu(UI ui) {

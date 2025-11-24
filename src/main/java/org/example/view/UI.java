@@ -14,9 +14,6 @@ import static java.lang.System.in;
 public class UI {
 
     Scanner scanner;
-    String currentDirectory;
-    FileOutputStream outputStream;
-    ObjectOutputStream objectOutputStream;
 
     public LibraryUser getLibraryUser() {
         return libraryUser;
@@ -28,9 +25,6 @@ public class UI {
     public void init() throws IOException {
         scanner = new Scanner(in);
         libraryUser = new LibraryUser(AccessUser.ADMIN);
-        currentDirectory = System.getProperty("user.dir");
-        outputStream = new FileOutputStream(currentDirectory + "\\src\\main\\java\\org\\example\\save.ser");
-        objectOutputStream = new ObjectOutputStream(outputStream);
     }
 
 }
