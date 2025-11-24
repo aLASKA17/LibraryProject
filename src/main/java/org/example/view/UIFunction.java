@@ -1,22 +1,22 @@
 package org.example.view;
 
 import org.example.exception.NotMenuPointException;
-import org.example.file.File;
+import org.example.file.FileSerializable;
 import org.example.model.Book;
 import org.example.sorted_book.ComparatorByAuthor;
 import org.example.sorted_book.ComparatorByPrice;
 import org.example.sorted_book.ComparatorByTitle;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 
 import static java.lang.System.*;
 
 public class UIFunction {
 
-    private File file = new File();
+    private FileSerializable fileSerializable = new FileSerializable();
 
-    public void addBookUIMenu(UI ui) throws IOException {
+    // Меню для добавления книги
+    public void addBookUIMenu(UI ui){
         ui.scanner.nextLine();
         out.print("Введите название книги: ");
         String title = ui.scanner.nextLine();
@@ -33,11 +33,12 @@ public class UIFunction {
             }
         } while (price == 0);
         ui.libraryUser.addBook(new Book(title, author, price));
-
-        file.saveBooks(ui.libraryUser.getBooks());
+        ui.libraryUser.updateIndex();
+        fileSerializable.saveBooks(ui.libraryUser.getBooks());
     }
 
-    public void editBookUIMenu(UI ui) throws IOException, NotMenuPointException {
+    // Меню для измения книг
+    public void editBookUIMenu(UI ui) throws  NotMenuPointException {
         int chooseEditMenu = 0;
             out.println("Меню изменения");
             out.println("1) Изменить название книги");
@@ -65,7 +66,8 @@ public class UIFunction {
                         out.print("\nВведите название книги: ");
                         String title = ui.scanner.nextLine();
                         ui.libraryUser.editTitleBook(editId, title);
-                        file.saveBooks(ui.libraryUser.getBooks());
+                        ui.libraryUser.updateIndex();
+                        fileSerializable.saveBooks(ui.libraryUser.getBooks());
                         break;
                     }
                     case 2: {
@@ -83,7 +85,8 @@ public class UIFunction {
                         out.print("\nВведите автора книги: ");
                         String author = ui.scanner.nextLine();
                         ui.libraryUser.editAuthorBook(editId, author);
-                        file.saveBooks(ui.libraryUser.getBooks());
+                        ui.libraryUser.updateIndex();
+                        fileSerializable.saveBooks(ui.libraryUser.getBooks());
                         break;
                     }
                     case 3: {
@@ -101,7 +104,8 @@ public class UIFunction {
                         out.print("\nВведите цену книги: ");
                         double price = ui.scanner.nextDouble();
                         ui.libraryUser.editPriceBook(editId, price);
-                        file.saveBooks(ui.libraryUser.getBooks());
+                        ui.libraryUser.updateIndex();
+                        fileSerializable.saveBooks(ui.libraryUser.getBooks());
                         break;
                     }
                 }
@@ -114,6 +118,7 @@ public class UIFunction {
             }
     }
 
+    // Меню для удаления книг
     public void removeBookUIMenu(UI ui) {
         ui.libraryUser.displayBooks();
         int removeId = 0;
@@ -121,15 +126,20 @@ public class UIFunction {
             try {
                 out.print("Введите id книги, ктороую хотите удалить: ");
                 removeId = ui.scanner.nextInt();
+                ui.libraryUser.removeBook(removeId-1);
+                ui.libraryUser.updateIndex();
+                fileSerializable.saveBooks(ui.libraryUser.getBooks());
             } catch (InputMismatchException ex) {
                 out.println("Неккоретно введенно значение!");
                 ui.scanner.nextLine();
+            } catch (IndexOutOfBoundsException ex) {
+                out.println("Книги по данному индексу нет!");
+                ui.scanner.nextLine();
             }
         } while (removeId == 0);
-        ui.libraryUser.removeBook(removeId);
-        file.saveBooks(ui.libraryUser.getBooks());
     }
 
+    // Меню для поиска книги
     public void searchBookUIMenu(UI ui) {
         int chooseSearchMenu = 0;
         out.println("Меню изменения");
@@ -166,6 +176,7 @@ public class UIFunction {
         }
     }
 
+    // Меню для сортировки книг
     public void sortBookUIMenu(UI ui) {
         int chooseSortMenu;
             out.println("Меню сортировки");

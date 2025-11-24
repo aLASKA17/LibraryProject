@@ -1,7 +1,6 @@
 package org.example.view;
 
 import org.example.exception.NotMenuPointException;
-import org.example.file.File;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -31,7 +30,10 @@ public class UIAdmin {
                     }
                     switch (chooseAdminMenu) {
                         case 1: {
-                            uiFunction.addBookUIMenu(ui);
+                            Thread threadAdd = new Thread(() -> {
+                                uiFunction.addBookUIMenu(ui);
+                            });
+                            threadAdd.start();
                             break;
                         }
                         case 2: {
@@ -44,8 +46,6 @@ public class UIAdmin {
                         }
                         case 4: {
                             ui.libraryUser.displayBooks();
-                            File file = new File();
-                            file.importBooks(ui.libraryUser.getBooks());
                             break;
                         }
                         case 5: {

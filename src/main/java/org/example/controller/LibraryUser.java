@@ -5,6 +5,7 @@ import org.example.model.Book;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LibraryUser implements UserAdmin, UserRegular, Serializable {
 
@@ -13,6 +14,19 @@ public class LibraryUser implements UserAdmin, UserRegular, Serializable {
 
     public ArrayList<Book> getBooks() {
         return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = (ArrayList<Book>) books;
+    }
+
+    // Апдейт индексов книг
+    public void updateIndex() {
+        int i = 1;
+        for (Book book : books) {
+            book.setId(i);
+            i++;
+        }
     }
 
     public LibraryUser(AccessUser accessUser) {
