@@ -1,7 +1,5 @@
 package org.example.model;
 
-import org.example.controller.LibraryUser;
-
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -9,7 +7,6 @@ public class Book implements Comparable<Book>, Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
 
     public void setId(int id) {
         this.id = id;
@@ -57,7 +54,6 @@ public class Book implements Comparable<Book>, Serializable {
         this.author = author;
         this.price = price;
     }
-
 
     @Override
     public String toString() {
